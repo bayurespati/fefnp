@@ -27,6 +27,20 @@ const actions = {
         });
     });
   },
+
+  getPenilaianCalons({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get("api/tpro/kandidat/penilaian")
+        .then((response) => {
+          commit;
+          resolve(response);
+        })
+        .catch((errors) => {
+          reject(errors.response.data.errors);
+        });
+    });
+  },
 };
 
 export default {

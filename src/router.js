@@ -4,6 +4,7 @@ import Vue from "vue";
 import Home from "./components/HomeView.vue";
 import Kandidat from "./components/kandidat/IndexView.vue";
 import Penilaian from "./components/penilaian/IndexView.vue";
+import Target from "./components/target/IndexView.vue";
 
 Vue.use(Router);
 
@@ -24,6 +25,11 @@ const router = new Router({
           path: "penilaian",
           name: "Penilaian",
           component: Penilaian,
+        },
+        {
+          path: "target",
+          name: "Target",
+          component: Target,
         },
       ],
     },

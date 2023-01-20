@@ -53,9 +53,9 @@
             <v-btn rounded color="success" dark @click="close()"> BACK </v-btn>
           </v-card-title>
           <v-tabs color="deep-purple accent-4" left>
-            <v-tab v-for="(n, key) in calon.penilaian" :key="key">{{
-              n.penguji.user.name
-            }}</v-tab>
+            <v-tab v-for="(n, key) in calon.penilaian" :key="key">
+              {{ n.penguji.user.name }}
+            </v-tab>
 
             <v-tab-item v-for="(n, index) in calon.penilaian" :key="index">
               <v-container fluid>
@@ -251,30 +251,6 @@ export default {
   data: () => ({
     length: 3,
     window: 0,
-    items: [
-      {
-        color: "#1F7087",
-        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-        title: "Supermodel",
-        artist: "Foster the People",
-      },
-      {
-        color: "#952175",
-        src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
-        title: "Halcyon Days",
-        artist: "Ellie Goulding",
-      },
-    ],
-    desserts: [
-      {
-        name: "DESKRIPSI PENIALAIAN",
-        calories: 159,
-      },
-      {
-        name: "NILAI",
-        calories: 237,
-      },
-    ],
   }),
 
   methods: {

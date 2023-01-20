@@ -1,11 +1,17 @@
 <template>
   <v-app>
-    <v-main>
-      <router-view> </router-view>
-    </v-main>
+    <router-view> </router-view>
+    <div style="margin-top: 100px">
+      <flash></flash>
+    </div>
   </v-app>
 </template>
 
 <script>
-export default {};
+import Flash from "./components/global/FlashView.vue";
+export default {
+  components: {
+    Flash,
+  },
+};
 </script>

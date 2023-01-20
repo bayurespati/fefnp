@@ -1,7 +1,12 @@
 <template>
   <v-app id="inspire">
     <nav>
-      <v-navigation-drawer v-model="drawer" class="red lighten-1" app dark>
+      <v-navigation-drawer
+        v-model="drawer"
+        class="blue-grey lighten-2"
+        app
+        dark
+      >
         <v-layout column align-center class="mt-5">
           <v-avatar size="100">
             <img src="image/round-logo-pins.png" alt="" />
@@ -77,15 +82,21 @@ export default {
     user: "",
     menus: [
       {
-        icon: "mdi-18px mdi-bank",
+        icon: "mdi-18px mdi-clipboard-account",
         text: "Kandidat",
         link: "/kandidat",
         permission: [1, 2, 3],
       },
       {
-        icon: "mdi-18px mdi-bank",
+        icon: "mdi-18px mdi-clipboard-text",
         text: "Penilaian",
         link: "/penilaian",
+        permission: [1, 2, 3],
+      },
+      {
+        icon: "mdi-18px mdi-target",
+        text: "Target",
+        link: "/target",
         permission: [1, 2, 3],
       },
     ],
