@@ -4,10 +4,8 @@
       <v-row>
         <v-col cols="12">
           <div class="base-title">
-            <h2>Manage Penilaian Kandidat</h2>
-            <p class="color-sub-title">
-              List sejumlah kandidat yang sudah mendapat penilaian
-            </p>
+            <h2>Manage Target Jabatan</h2>
+            <p class="color-sub-title">Halaman untuk mapping target jabatan</p>
           </div>
           <transition name="fade-transition">
             <list
@@ -15,10 +13,14 @@
               @showEdit="showEdit($event)"
               @changeStatus="changeStatus($event)"
             ></list>
+            <add
+              v-if="status === 'add'"
+              @cancelAdd="changeStatus($event)"
+            ></add>
             <edit
               v-if="status === 'edit'"
               @cancelEdit="changeStatus($event)"
-              :calon="calon"
+              :target="target"
             ></edit>
           </transition>
         </v-col>
@@ -30,17 +32,20 @@
 <script>
 import List from "./TableComp.vue";
 import Edit from "./EditComp.vue";
+import Add from "./AddComp.vue";
+
 export default {
   data() {
     return {
       status: "table",
-      calon: "",
+      target: "",
     };
   },
 
   components: {
     List,
     Edit,
+    Add,
   },
 
   methods: {
@@ -55,7 +60,7 @@ export default {
     showEdit(value) {
       let self = this;
       this.status = "";
-      self.calon = value;
+      self.target = value;
       setTimeout(function () {
         self.status = "edit";
       }, 300);

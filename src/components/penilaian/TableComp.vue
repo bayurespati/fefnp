@@ -56,7 +56,7 @@ export default {
       calon: {},
       key_word: "",
 
-      footerProps: { "items-per-page-options": [5, 10, 15] },
+      footerProps: { "items-per-page-options": [10, 20, 50] },
       headers: [
         { text: "NIK", align: "left", value: "user.nik" },
         { text: "Nama", align: "left", value: "user.name" },

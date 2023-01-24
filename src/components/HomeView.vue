@@ -66,14 +66,18 @@
           <v-icon right>mdi-logout-variant</v-icon>
         </v-btn>
       </v-app-bar>
-      <transition name="slide">
-        <router-view></router-view>
-      </transition>
     </nav>
+    <transition name="slide">
+      <router-view></router-view>
+    </transition>
+    <div style="margin-top: 100px">
+      <flash></flash>
+    </div>
   </v-app>
 </template>
 
 <script>
+import Flash from "../components/global/FlashView.vue";
 import { mapGetters } from "vuex";
 import axios from "axios";
 export default {
@@ -82,25 +86,35 @@ export default {
     user: "",
     menus: [
       {
+        icon: "mdi-18px mdi-crown",
+        text: "Jabatan",
+        link: "/jabatan",
+        permission: [1, 2],
+      },
+      {
         icon: "mdi-18px mdi-clipboard-account",
         text: "Kandidat",
         link: "/kandidat",
-        permission: [1, 2, 3],
+        permission: [1, 2],
       },
       {
         icon: "mdi-18px mdi-clipboard-text",
         text: "Penilaian",
         link: "/penilaian",
-        permission: [1, 2, 3],
+        permission: [1, 2],
       },
       {
         icon: "mdi-18px mdi-target",
         text: "Target",
         link: "/target",
-        permission: [1, 2, 3],
+        permission: [1, 2],
       },
     ],
   }),
+
+  components: {
+    Flash,
+  },
 
   beforeMount() {
     this.getUser();

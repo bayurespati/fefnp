@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-row dense>
-      <v-col cols="4">
+    <v-row>
+      <v-col cols="4" class="pl-0">
         <v-card outlined elevation="5">
           <v-layout column align-center class="mt-5">
             <v-avatar size="150">

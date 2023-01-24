@@ -5,6 +5,7 @@ import Home from "./components/HomeView.vue";
 import Kandidat from "./components/kandidat/IndexView.vue";
 import Penilaian from "./components/penilaian/IndexView.vue";
 import Target from "./components/target/IndexView.vue";
+import Jabatan from "./components/jabatan/IndexView.vue";
 
 Vue.use(Router);
 
@@ -16,6 +17,11 @@ const router = new Router({
       name: "Home",
       component: Home,
       children: [
+        {
+          path: "jabatan",
+          name: "Jabatan",
+          component: Jabatan,
+        },
         {
           path: "kandidat",
           name: "Kandidat",

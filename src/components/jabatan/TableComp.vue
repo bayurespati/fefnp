@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       <div class="text-center mt-4">
-        <v-btn rounded color="primary" dark @click="add()">Create Target</v-btn>
+        <v-btn rounded color="primary" dark @click="add()">Mapping target jabatan</v-btn>
       </div>
       <!--======================================================================================
           SEARCH 
@@ -44,7 +44,7 @@
                     outlined
                     color="red darken-1"
                     text
-                    @click="deleteTarget"
+                    @click="deleteJabatan"
                     >Delete</v-btn
                   >
                 </v-col>
@@ -60,11 +60,21 @@
       ==========================================================================================-->
     <v-data-table
       :headers="headers"
-      :items="targets"
+      :items="jabatans"
       :search="search"
       :items-per-page="5"
       :footer-props="footerProps"
     >
+      <template v-slot:[`item.kandidat`]="{ item }">
+        <div class="p-2">
+          {{ item.kandidat.length }}
+        </div>
+      </template>
+      <template v-slot:[`item.penguji`]="{ item }">
+        <div class="p-2">
+          {{ item.penguji.length }}
+        </div>
+      </template>
       <template v-slot:[`item.action`]="{ item }">
         <v-icon color="orange" small class="mr-2" @click="edit(item)">
           mdi-pencil-box
@@ -88,15 +98,27 @@ export default {
       deleteIndex: -1,
       dialog: false,
       isRequest: false,
-      targets: [],
-      target: {},
+      jabatans: [],
+      jabatan: {},
       key_word: "",
 
       footerProps: { "items-per-page-options": [10, 20, 50] },
       headers: [
         {
-          text: "Nama",
-          value: "nama",
+          text: "Target",
+          value: "target.nama",
+        },
+        {
+          text: "Tanggal",
+          value: "tanggal",
+        },
+        {
+          text: "Kandidat",
+          value: "kandidat",
+        },
+        {
+          text: "Penguji",
+          value: "penguji",
         },
         { text: "Actions", value: "action", sortable: false },
       ],
@@ -104,27 +126,27 @@ export default {
   },
 
   beforeMount() {
-    this.getTargets();
+    this.getProgress();
   },
 
   methods: {
-    getTargets() {
+    getProgress() {
       let self = this;
-      self.$store.dispatch("getTargets").then((response) => {
-        self.targets = response.data;
+      self.$store.dispatch("getJabatanProgress").then((response) => {
+        self.jabatans = response.data;
       });
     },
 
-    deleteTarget() {
+    deleteJabatan() {
       let self = this;
       if (!self.isRequest && self.key_word === "DELETE") {
         self.isRequest = true;
 
         self.$store
-          .dispatch("deleteTarget", self.target.id)
+          .dispatch("deleteJabatan", self.jabatan.id)
           .then((response) => {
             self.key_word = "";
-            self.deleteCurrentTarget();
+            self.deleteCurrentJabatan();
             window.events.$emit("flash", response);
             self.isRequest = false;
             self.closeDialog();
@@ -137,17 +159,17 @@ export default {
       }
     },
 
-    deleteCurrentTarget() {
+    deleteCurrentJabatan() {
       let self = this;
-      let index = _.findIndex(self.targets, function (target) {
-        return target.id === self.target.id;
+      let index = _.findIndex(self.jabatans, function (jabatan) {
+        return jabatan.id === self.jabatan.id;
       });
 
-      self.targets.splice(index, 1);
+      self.jabatanss.splice(index, 1);
     },
 
     openDialog(item) {
-      this.target = item;
+      this.jabatan = item;
       this.dialog = true;
     },
 
