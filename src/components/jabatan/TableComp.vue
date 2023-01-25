@@ -76,9 +76,6 @@
         </div>
       </template>
       <template v-slot:[`item.action`]="{ item }">
-        <v-icon color="orange" small class="mr-2" @click="edit(item)">
-          mdi-pencil-box
-        </v-icon>
         <v-icon color="red" small class="mr-2" @click="openDialog(item)">
           mdi-delete
         </v-icon>

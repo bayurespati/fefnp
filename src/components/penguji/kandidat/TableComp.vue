@@ -19,7 +19,7 @@
       ==========================================================================================-->
     <v-data-table
       :headers="headers"
-      :items="calons"
+      :items="kandidats"
       :search="search"
       :items-per-page="5"
       :footer-props="footerProps"
@@ -34,7 +34,7 @@
       </template>
       <template v-slot:[`item.action`]="{ item }">
         <v-icon color="orange" small class="mr-2" @click="edit(item)">
-          mdi-eye
+          mdi-pencil-box
         </v-icon>
       </template>
       <template v-slot:no-data>
@@ -52,8 +52,8 @@ export default {
       deleteIndex: -1,
       dialog: false,
       isRequest: false,
-      calons: [],
-      calon: {},
+      kandidats: [],
+      kandidat: {},
       key_word: "",
 
       footerProps: { "items-per-page-options": [10, 20, 50] },
@@ -68,29 +68,30 @@ export default {
   },
 
   beforeMount() {
-    this.getCalons();
+    this.getKandidats();
   },
 
   methods: {
-    getCalons() {
+    getKandidats() {
       let self = this;
-      self.$store.dispatch("getCalons").then((response) => {
-        self.calons = response.data;
+
+      const data = {
+        user_id: 9,
+      };
+
+      self.$store.dispatch("getKandidats", data).then((response) => {
+        self.kandidats = response;
       });
     },
 
     openDialog(item) {
-      this.calon = item;
+      this.kandidat = item;
       this.dialog = true;
     },
 
     closeDialog() {
       this.key_word = "";
       this.dialog = false;
-    },
-
-    add() {
-      this.$emit("changeStatus", "add");
     },
 
     edit(item) {

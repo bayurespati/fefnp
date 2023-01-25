@@ -14,10 +14,10 @@ const getters = {
 const mutations = {};
 
 const actions = {
-  getJabatanProgress({ commit }) {
+  getJabatanProgress({ commit }, data) {
     return new Promise((resolve, reject) => {
       axios
-        .get("/api/tpro/jabatan/progress")
+        .get("/api/tpro/jabatan/progress", data)
         .then((response) => {
           commit;
           resolve(response);
@@ -33,7 +33,6 @@ const actions = {
       axios
         .post("/api/tpro/jabatan", data)
         .then((response) => {
-          console.log(response);
           commit;
           resolve(response.data);
         })

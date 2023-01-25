@@ -124,8 +124,6 @@
 import { required } from "vuelidate/lib/validators";
 
 export default {
-  components: {},
-
   data() {
     return {
       model: {
@@ -140,7 +138,6 @@ export default {
       alert: true,
       users:[],
       targets:[],
-      searchTerm: "",
     };
   },
 

@@ -34,7 +34,7 @@
       </template>
       <template v-slot:[`item.action`]="{ item }">
         <v-icon color="orange" small class="mr-2" @click="edit(item)">
-          mdi-pencil-box
+          mdi-eye
         </v-icon>
       </template>
       <template v-slot:no-data>

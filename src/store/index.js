@@ -5,6 +5,8 @@ import kandidat from "./modules/kandidat";
 import target from "./modules/target";
 import jabatan from "./modules/jabatan";
 import users from "./modules/users";
+import penguji from "./modules/penguji";
+import penilaian from "./modules/penilaian";
 
 Vue.use(Vuex);
 
@@ -13,6 +15,8 @@ export default new Vuex.Store({
     kandidat,
     target,
     jabatan,
-    users
+    users,
+    penguji,
+    penilaian,
   },
 });

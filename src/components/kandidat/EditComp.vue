@@ -249,32 +249,6 @@
 export default {
   props: { calon: {} },
   data: () => ({
-    length: 3,
-    window: 0,
-    items: [
-      {
-        color: "#1F7087",
-        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-        title: "Supermodel",
-        artist: "Foster the People",
-      },
-      {
-        color: "#952175",
-        src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
-        title: "Halcyon Days",
-        artist: "Ellie Goulding",
-      },
-    ],
-    desserts: [
-      {
-        name: "DESKRIPSI PENIALAIAN",
-        calories: 159,
-      },
-      {
-        name: "NILAI",
-        calories: 237,
-      },
-    ],
   }),
 
   methods: {

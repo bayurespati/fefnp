@@ -7,6 +7,9 @@ import Penilaian from "./components/penilaian/IndexView.vue";
 import Target from "./components/target/IndexView.vue";
 import Jabatan from "./components/jabatan/IndexView.vue";
 
+import PengujiKandidat from "./components/penguji/kandidat/IndexView.vue";
+import PengujiPenilaian from "./components/penguji/penilaian/IndexView.vue";
+
 Vue.use(Router);
 
 const router = new Router({
@@ -36,6 +39,16 @@ const router = new Router({
           path: "target",
           name: "Target",
           component: Target,
+        },
+        {
+          path: "penguji-kandidat",
+          name: "Penguji-Kandidat",
+          component: PengujiKandidat,
+        },
+        {
+          path: "penguji-penilaian",
+          name: "Penguji-penilaian",
+          component: PengujiPenilaian,
         },
       ],
     },

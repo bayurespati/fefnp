@@ -109,6 +109,33 @@ export default {
         link: "/target",
         permission: [1, 2],
       },
+      {
+        icon: "mdi-18px mdi-clipboard-account",
+        text: "Penguji Kandidat",
+        link: "/penguji-kandidat",
+        permission: [1, 2],
+      },
+      {
+        icon: "mdi-18px mdi-clipboard-text",
+        text: "Penguji Penilaian",
+        link: "/penguji-penilaian",
+        permission: [1, 2],
+      },
+    ],
+
+    menus2: [
+      {
+        icon: "mdi-18px mdi-clipboard-account",
+        text: "Kandidat",
+        link: "/penguji-kandidat",
+        permission: [1, 2],
+      },
+      {
+        icon: "mdi-18px mdi-clipboard-text",
+        text: "Penilaian",
+        link: "/penguji-penilaian",
+        permission: [1, 2],
+      },
     ],
   }),
 
