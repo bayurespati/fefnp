@@ -142,7 +142,7 @@
                           </span>
                         </td>
                         <td>
-                          {{ n.visionery_thiking }}
+                          {{ n.visionery_thinking }}
                         </td>
                       </tr>
                       <tr>

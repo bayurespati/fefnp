@@ -1,0 +1,116 @@
+<template>
+  <v-card>
+    <v-card-title>
+      <div class="text-center mt-4"></div>
+      <!--======================================================================================
+          SEARCH 
+      ==========================================================================================-->
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="search"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
+
+    <!--======================================================================================
+        TABLE 
+      ==========================================================================================-->
+    <v-data-table
+      :headers="headers"
+      :items="kandidats"
+      :search="search"
+      :items-per-page="5"
+      :footer-props="footerProps"
+    >
+      <template v-slot:[`item.file_link`]="{ item }">
+        <a
+          :src="item.link"
+          @click.prevent="downloadItem(item.file_link, item.file_name)"
+        >
+          {{ item.file_name }}
+        </a>
+      </template>
+      <template v-slot:[`item.action`]="{ item }">
+        <v-icon color="orange" small class="mr-2" @click="edit(item)">
+          mdi-eye
+        </v-icon>
+      </template>
+      <template v-slot:no-data>
+        <v-btn sm outlined color="indigo" style="border: 0">No data</v-btn>
+      </template>
+    </v-data-table>
+  </v-card>
+</template>
+<script>
+import Axios from "axios";
+export default {
+  data() {
+    return {
+      search: "",
+      deleteIndex: -1,
+      dialog: false,
+      isRequest: false,
+      kandidats: [],
+      kandidat: {},
+      key_word: "",
+
+      footerProps: { "items-per-page-options": [10, 20, 50] },
+      headers: [
+        { text: "NIK", align: "left", value: "user.nik" },
+        { text: "Nama", align: "left", value: "user.name" },
+        { text: "Posisi", value: "user.role.position.name" },
+        { text: "Target", value: "jabatan.target.nama" },
+        { text: "Actions", value: "action", sortable: false },
+      ],
+    };
+  },
+
+  beforeMount() {
+    this.getKandidats();
+  },
+
+  methods: {
+    getKandidats() {
+      let self = this;
+
+      const data = {
+        user_id: 9,
+      };
+
+      self.$store.dispatch("getPenilaianKandidat", data).then((response) => {
+        console.log(response.data);
+        self.kandidats = response.data;
+      });
+    },
+
+    openDialog(item) {
+      this.kandidat = item;
+      this.dialog = true;
+    },
+
+    closeDialog() {
+      this.key_word = "";
+      this.dialog = false;
+    },
+
+    edit(item) {
+      this.$emit("showEdit", item);
+    },
+
+    downloadItem(url, label) {
+      Axios.get(url, { responseType: "blob" })
+        .then((response) => {
+          const blob = new Blob([response.data], { type: "application/*" });
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = label;
+          link.click();
+          URL.revokeObjectURL(link.href);
+        })
+        .catch(console.error);
+    },
+  },
+};
+</script>

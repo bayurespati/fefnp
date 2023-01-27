@@ -33,6 +33,22 @@ const actions = {
         });
     });
   },
+
+  getPenilaianKandidat({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get("/api/tpro/penguji/penilaian-kandidat", {
+          params: { user_id: data.user_id },
+        })
+        .then((response) => {
+          commit;
+          resolve(response);
+        })
+        .catch((errors) => {
+          reject(errors.response.data.errors);
+        });
+    });
+  },
 };
 
 export default {
