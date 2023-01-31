@@ -89,7 +89,7 @@
                       </span>
                       <br />
                       <span style="font-size: 12px">
-                        Kemampuan mengambil keputusan atau tondakan yang tepat
+                        Kemampuan mengambil keputusan atau tindakan yang tepat
                         dan efektif dalam menyelesaikan masalah.
                       </span>
                     </td>

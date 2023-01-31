@@ -37,14 +37,16 @@
               </span>
             </div>
 
-            <button
-              class="btn btn-primary"
-              style="color: white"
+            <v-btn
+              style="margin-left: 60px; margin-top: 10px"
+              rounded
+              color="success"
+              :loading="isRequest"
               @click="login()"
               v-on:keyup.enter="login()"
             >
               Masuk
-            </button>
+            </v-btn>
           </div>
         </div>
       </div>
@@ -92,13 +94,16 @@ export default {
                     if (response == "Abort")
                       self.message = "User belum terdafatar";
                   })
-                  .catch((error) => {
-                    error;
+                  .catch(() => {
+                    self.isRequest = false;
                   });
               })
-              .catch(() => {});
+              .catch(() => {
+                self.isRequest = false;
+              });
           })
           .catch((errors) => {
+            self.isRequest = false;
             self.message = errors.data.message;
           });
       }

@@ -4,10 +4,14 @@
       <v-col cols="4" class="pl-0">
         <v-card outlined elevation="5">
           <v-layout column align-center class="mt-5">
-            <v-avatar size="150">
+            <v-avatar color="indigo" size="150">
               <img
-                src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg"
+                v-if="calon.user.image"
+                :src="calon.user.image ? calon.user.image.link : 'goks.avif'"
               />
+              <span v-else class="white--text bold text-h2">{{
+                calon.user.name | name
+              }}</span>
             </v-avatar>
             <v-list-item-title class="text-h6">
               {{ calon.user.name }}
@@ -53,19 +57,21 @@
                   <template v-slot:default>
                     <thead>
                       <tr>
+                        <th class="text-left">KRITERIA</th>
                         <th class="text-left">DESKRIPSI PENIALAIAN</th>
                         <th class="text-left">NILAI</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
+                        <td rowspan="2" style="font-weight: bold">CHARACTER</td>
                         <td>
                           <span style="font-weight: bold; font-size: 12px">
-                            Enthuasiasm
+                            Enthusiasm
                           </span>
                           <br />
                           <span style="font-size: 12px">
-                            Passion dan antusiasme terhdap penugasan-penugasan
+                            Passion dan antusisme terhdap penugasan-penugasan
                             yang diberikan.
                           </span>
                         </td>
@@ -89,13 +95,16 @@
                         </td>
                       </tr>
                       <tr>
+                        <td rowspan="3" style="font-weight: bold">
+                          COMPETENCE
+                        </td>
                         <td>
                           <span style="font-weight: bold; font-size: 12px">
                             Decision Making
                           </span>
                           <br />
                           <span style="font-size: 12px">
-                            Kemampuan mengambil keputusan atau tondakan yang
+                            Kemampuan mengambil keputusan atau tindakan yang
                             tepat dan efektif dalam menyelesaikan masalah.
                           </span>
                         </td>
@@ -136,15 +145,16 @@
                         </td>
                       </tr>
                       <tr>
+                        <td style="font-weight: bold">COLLABORATION</td>
                         <td>
                           <span style="font-weight: bold; font-size: 12px">
                             Networking
                           </span>
                           <br />
                           <span style="font-size: 12px">
-                            Komitmen untuk menciptkan, mendorong serta
+                            Komitmen untuk menciptakan, mendorong serta
                             memelihara hubungan kolaborasi lintas unit kerja,
-                            sinergi Telkom group, dan strategik partner lainnya
+                            sinergi Telkom Group, dan strategik partner lainnya
                             (Government, Community, dll).
                           </span>
                         </td>
@@ -153,16 +163,17 @@
                         </td>
                       </tr>
                       <tr>
+                        <td style="font-weight: bold">CULTURE FIT</td>
                         <td>
                           <span style="font-weight: bold; font-size: 12px">
-                            Culuture Implementation
+                            Culture Implementation
                           </span>
                           <br />
                           <span style="font-size: 12px">
                             Apa yang akan dilakukan jika nantinya menduduki
                             target posisi tersebut terkait dengan Budaya
                             perusahaan. Komitmen dan kepedulian untuk mendukung
-                            aktivasi budaya telkom Group dan
+                            aktivasi budaya Telkom Group dan
                             menginternalisasikan ke dalam prilaku serta dalam
                             melaksanakan pekerjaan.
                           </span>
@@ -172,39 +183,39 @@
                         </td>
                       </tr>
                       <tr>
-                        <td colspan="2">
-                          <span style="font-weight: bold; font-size: 12px">
+                        <td colspan="3">
+                          <span style="font-weight: bold; font-size: 14px">
                             SUCCESS STORY
                           </span>
                           <br />
-                          <span>
+                          <span style="font-size: 12px">
                             Jelaskan keberhasilan-keberhasilan apa yang telah
                             dicapai selama ini dalam lingkup pekerjaannya :
                           </span>
                           <br />
-                          <span>
+                          <span style="font-size: 12px">
                             {{ n.success_story }}
                           </span>
                         </td>
                       </tr>
                       <tr>
-                        <td colspan="2">
-                          <span style="font-weight: bold; font-size: 12px">
-                            WINNING PROGRAM/ BREAK THROUGH
+                        <td colspan="3">
+                          <span style="font-weight: bold; font-size: 14px">
+                            WINNING PROGRAM / BREAKTHROUGH
                           </span>
                           <br />
-                          <span>
+                          <span style="font-size: 12px">
                             Jelaskan apa yang akan dilakukan jika nantinya
                             menduduki posisi tersebut:
                           </span>
                           <br />
-                          <span>
+                          <span style="font-size: 12px">
                             {{ n.winning_program }}
                           </span>
                         </td>
                       </tr>
                       <tr>
-                        <td colspan="2">
+                        <td colspan="3">
                           <div style="font-size: 14px">
                             <p style="margin-top: 5px">
                               KESIMPULAN REKOMENDASI AKHIR :
@@ -212,10 +223,12 @@
                                 {{ n.kesimpulan }}
                               </span>
                             </p>
-                            <p style="font-size: 14px">
+                            <p style="font-size: 12px">
                               Catatan:
                               <br />
-                              {{ n.catatan_kesimpulan }}
+                              <span style="font-weight: bold">
+                                {{ n.catatan_kesimpulan }}
+                              </span>
                             </p>
                           </div>
                         </td>
@@ -243,6 +256,13 @@ export default {
     length: 3,
     window: 0,
   }),
+
+  filters: {
+    name: function (data) {
+      let temp = data.split(" ");
+      return temp[0][0] + temp[temp.length - 1][0];
+    },
+  },
 
   methods: {
     close() {
