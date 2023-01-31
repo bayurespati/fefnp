@@ -86,7 +86,8 @@ export default {
                 self.$store
                   .dispatch("getRole")
                   .then((response) => {
-                    response;
+                    if (response == "Abort")
+                      self.message = "User belum terdafatar";
                   })
                   .catch((error) => {
                     error;

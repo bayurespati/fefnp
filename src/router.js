@@ -30,31 +30,37 @@ const router = new Router({
           path: "jabatan",
           name: "Jabatan",
           component: Jabatan,
+          meta: { authorize: "TSPRO HCM" },
         },
         {
           path: "kandidat",
           name: "Kandidat",
           component: Kandidat,
+          meta: { authorize: "TSPRO HCM" },
         },
         {
           path: "penilaian",
           name: "Penilaian",
           component: Penilaian,
+          meta: { authorize: "TSPRO HCM" },
         },
         {
           path: "target",
           name: "Target",
           component: Target,
+          meta: { authorize: "TSPRO HCM" },
         },
         {
           path: "penguji-kandidat",
           name: "Penguji-Kandidat",
           component: PengujiKandidat,
+          meta: { authorize: "TSPRO PENGUJI" },
         },
         {
           path: "penguji-penilaian",
           name: "Penguji-penilaian",
           component: PengujiPenilaian,
+          meta: { authorize: "TSPRO PENGUJI" },
         },
       ],
     },
@@ -72,12 +78,20 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.meta.middleware == "guest") {
     if (store.state.auth.token) {
-      next({ name: "Jabatan" });
+      next({ name: "Home" });
     }
     next();
   } else {
     if (store.state.auth.token) {
-      next();
+      if (to.meta.authorize == store.state.auth.role.name) {
+        next();
+      } else {
+        if (store.state.auth.role.name == "TSPRO PENGUJI") {
+          next({ name: "Penguji-Kandidat" });
+        } else {
+          next({ name: "Jabatan" });
+        }
+      }
     } else {
       next({ name: "Login" });
     }

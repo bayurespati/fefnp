@@ -48,6 +48,8 @@ const actions = {
       axios
         .post("/api/auth/token/request", data)
         .then((response) => {
+          response;
+          commit;
           commit("SET_TOKEN", response.data.data.access_token);
           resolve(response);
         })
@@ -77,9 +79,22 @@ const actions = {
         .get("/api/tpro/role")
         .then((response) => {
           commit;
-          commit("SET_ROLE", response.data);
-          router.push({ name: "Jabatan" });
-          resolve(response);
+          if (Object.keys(response.data).length == 0) {
+            commit("SET_USER", {});
+            commit("SET_TOKEN", null);
+            commit("SET_ROLE", null);
+            commit("SET_MENU", null);
+            resolve("Abort");
+          } else {
+            commit("SET_ROLE", response.data);
+
+            if (response.data.name == "TSPRO HCM") {
+              router.push({ name: "Jabatan" });
+            } else {
+              router.push({ name: "Penguji-Kandidat" });
+            }
+            resolve(response);
+          }
         })
         .catch((errors) => {
           reject(errors.response);
@@ -112,6 +127,8 @@ const actions = {
         .then((response) => {
           commit("SET_USER", {});
           commit("SET_TOKEN", null);
+          commit("SET_ROLE", null);
+          commit("SET_MENU", null);
           resolve(response);
           router.push({ name: "Login" });
         })
