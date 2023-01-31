@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@auth0/auth0-spa-js": "^2.0.2",
     "axios": "^1.2.3",
     "core-js": "^3.8.3",
     "lodash": "^4.17.21",
@@ -15,7 +16,8 @@
     "vue-router": "^3.6.5",
     "vuelidate": "^0.7.7",
     "vuetify": "^2.6.0",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

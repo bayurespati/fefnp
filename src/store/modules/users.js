@@ -1,5 +1,4 @@
-import axios from "axios";
-axios.defaults.baseURL = "http://masterapi.test";
+import axios from "../../axiosset";
 
 const state = {
   users: [],
@@ -12,9 +11,9 @@ const getters = {
 };
 
 const mutations = {
-    set_users: (state, users) => {
-        state.users = users;
-    },
+  set_users: (state, users) => {
+    state.users = users;
+  },
 };
 
 const actions = {
@@ -23,11 +22,11 @@ const actions = {
       axios
         .get("/api/cms/user/get")
         .then((response) => {
-            resolve(response.data)
-            commit('set_users', response.data.data);
+          resolve(response.data);
+          commit("set_users", response.data.data);
         })
         .catch((errors) => {
-            reject(errors.response.data.errors);
+          reject(errors.response.data.errors);
         });
     });
   },

@@ -58,7 +58,7 @@
       <v-app-bar app dense color="white">
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
         <v-toolbar-title>
-          <span class="font-weight-light"> Bayu Respati </span>
+          <span class="font-weight-light"> {{ user.name }} </span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn color="gray" @click="logout">
@@ -79,12 +79,10 @@
 <script>
 import Flash from "../components/global/FlashView.vue";
 import { mapGetters } from "vuex";
-import axios from "axios";
 export default {
   data: () => ({
     drawer: null,
-    user: "",
-    menus: [
+    hr: [
       {
         icon: "mdi-18px mdi-crown",
         text: "Jabatan",
@@ -109,21 +107,9 @@ export default {
         link: "/target",
         permission: [1, 2],
       },
-      {
-        icon: "mdi-18px mdi-clipboard-account",
-        text: "Penguji Kandidat",
-        link: "/penguji-kandidat",
-        permission: [1, 2],
-      },
-      {
-        icon: "mdi-18px mdi-clipboard-text",
-        text: "Penguji Penilaian",
-        link: "/penguji-penilaian",
-        permission: [1, 2],
-      },
     ],
 
-    menus2: [
+    penilai: [
       {
         icon: "mdi-18px mdi-clipboard-account",
         text: "Kandidat",
@@ -143,10 +129,6 @@ export default {
     Flash,
   },
 
-  beforeMount() {
-    this.getUser();
-  },
-
   filters: {
     inisial: function (data) {
       if (data != undefined) return "Halo, " + data.split(" ")[0];
@@ -154,21 +136,35 @@ export default {
   },
 
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      user: "getUser",
+      role: "getRole",
+    }),
+
+    menus() {
+      if (this.role == null) {
+        return [];
+      } else {
+        return this.role.name == "TSPRO HCM" ? this.hr : this.penilai;
+      }
+    },
   },
 
   methods: {
-    getUser() {},
-
     isHasPermision(item) {
       if (this.user.role_id != undefined)
         return item.permission.includes(this.user.role_id);
     },
 
     logout() {
-      axios.post("/logout").then(() => {
-        window.location.href = "login";
-      });
+      this.$store
+        .dispatch("logout")
+        .then((response) => {
+          response;
+        })
+        .catch((errors) => {
+          errors;
+        });
     },
   },
 };

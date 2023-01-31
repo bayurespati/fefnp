@@ -24,14 +24,6 @@
       :items-per-page="5"
       :footer-props="footerProps"
     >
-      <template v-slot:[`item.file_link`]="{ item }">
-        <a
-          :src="item.link"
-          @click.prevent="downloadItem(item.file_link, item.file_name)"
-        >
-          {{ item.file_name }}
-        </a>
-      </template>
       <template v-slot:[`item.action`]="{ item }">
         <v-icon color="orange" small class="mr-2" @click="edit(item)">
           mdi-eye
@@ -44,7 +36,6 @@
   </v-card>
 </template>
 <script>
-import Axios from "axios";
 export default {
   data() {
     return {
@@ -96,19 +87,6 @@ export default {
 
     edit(item) {
       this.$emit("showEdit", item);
-    },
-
-    downloadItem(url, label) {
-      Axios.get(url, { responseType: "blob" })
-        .then((response) => {
-          const blob = new Blob([response.data], { type: "application/*" });
-          const link = document.createElement("a");
-          link.href = URL.createObjectURL(blob);
-          link.download = label;
-          link.click();
-          URL.revokeObjectURL(link.href);
-        })
-        .catch(console.error);
     },
   },
 };

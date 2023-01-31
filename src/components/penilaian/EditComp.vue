@@ -233,7 +233,7 @@
                     </tbody>
                   </template>
                 </v-simple-table>
-                <v-btn rounded color="primary" dark @click="close()">
+                <v-btn rounded color="primary" dark @click="downloadItem(n)">
                   Download
                 </v-btn>
               </v-container>
@@ -246,6 +246,7 @@
 </template>
 
 <script>
+import Axios from "../../axiosset";
 export default {
   props: { calon: {} },
   data: () => ({
@@ -256,6 +257,23 @@ export default {
   methods: {
     close() {
       this.$emit("cancelEdit", "table");
+    },
+
+    downloadItem(n) {
+      let url = process.env.VUE_APP_URL;
+      Axios.get(url + "/api/tpro/penilaian/export", {
+        params: { id: n.id },
+        responseType: "blob",
+      })
+        .then((response) => {
+          const blob = new Blob([response.data], { type: "application/*" });
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = n.penguji.user.name + ".pdf";
+          link.click();
+          URL.revokeObjectURL(link.href);
+        })
+        .catch(console.error);
     },
   },
 };

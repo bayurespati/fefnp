@@ -1,7 +1,10 @@
 import Router from "vue-router";
 import Vue from "vue";
 
+import store from "./store";
+
 import Home from "./components/HomeView.vue";
+import Login from "./components/LoginView.vue";
 import Kandidat from "./components/kandidat/IndexView.vue";
 import Penilaian from "./components/penilaian/IndexView.vue";
 import Target from "./components/target/IndexView.vue";
@@ -19,6 +22,9 @@ const router = new Router({
       path: "/",
       name: "Home",
       component: Home,
+      meta: {
+        middleware: "auth",
+      },
       children: [
         {
           path: "jabatan",
@@ -55,9 +61,27 @@ const router = new Router({
     {
       path: "/login",
       name: "Login",
-      component: Home,
+      component: Login,
+      meta: {
+        middleware: "guest",
+      },
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.middleware == "guest") {
+    if (store.state.auth.token) {
+      next({ name: "Jabatan" });
+    }
+    next();
+  } else {
+    if (store.state.auth.token) {
+      next();
+    } else {
+      next({ name: "Login" });
+    }
+  }
 });
 
 export default router;

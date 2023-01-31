@@ -24,14 +24,6 @@
       :items-per-page="5"
       :footer-props="footerProps"
     >
-      <template v-slot:[`item.file_link`]="{ item }">
-        <a
-          :src="item.link"
-          @click.prevent="downloadItem(item.file_link, item.file_name)"
-        >
-          {{ item.file_name }}
-        </a>
-      </template>
       <template v-slot:[`item.action`]="{ item }">
         <v-icon color="orange" small class="mr-2" @click="edit(item)">
           mdi-pencil-box
@@ -44,7 +36,7 @@
   </v-card>
 </template>
 <script>
-import Axios from "axios";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -71,12 +63,18 @@ export default {
     this.getKandidats();
   },
 
+  computed: {
+    ...mapGetters({
+      user: "getUser",
+    }),
+  },
+
   methods: {
     getKandidats() {
       let self = this;
 
       const data = {
-        user_id: 9,
+        user_id: this.user.id,
       };
 
       self.$store.dispatch("getKandidats", data).then((response) => {
@@ -96,19 +94,6 @@ export default {
 
     edit(item) {
       this.$emit("showEdit", item);
-    },
-
-    downloadItem(url, label) {
-      Axios.get(url, { responseType: "blob" })
-        .then((response) => {
-          const blob = new Blob([response.data], { type: "application/*" });
-          const link = document.createElement("a");
-          link.href = URL.createObjectURL(blob);
-          link.download = label;
-          link.click();
-          URL.revokeObjectURL(link.href);
-        })
-        .catch(console.error);
     },
   },
 };

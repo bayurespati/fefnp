@@ -1,5 +1,4 @@
-import axios from "axios";
-axios.defaults.baseURL = "http://masterapi.test";
+import axios from "../../axiosset";
 
 const state = {
   targets: [],

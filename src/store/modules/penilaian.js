@@ -1,5 +1,4 @@
-import axios from "axios";
-axios.defaults.baseURL = "http://masterapi.test";
+import axios from "../../axiosset";
 
 const state = {};
 
@@ -17,7 +16,6 @@ const actions = {
           resolve(response.data);
         })
         .catch((errors) => {
-          console.log(errors);
           reject(errors.response.data.errors);
         });
     });

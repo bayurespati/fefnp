@@ -2,7 +2,9 @@
   <v-card>
     <v-card-title>
       <div class="text-center mt-4">
-        <v-btn rounded color="primary" dark @click="add()">Mapping target jabatan</v-btn>
+        <v-btn rounded color="primary" dark @click="add()">
+          Mapping target jabatan
+        </v-btn>
       </div>
       <!--======================================================================================
           SEARCH 
@@ -154,6 +156,17 @@ export default {
             self.closeDialog();
           });
       }
+    },
+
+    getMenu() {
+      this.$store
+        .dispatch("getRole")
+        .then((response) => {
+          response;
+        })
+        .catch((error) => {
+          error;
+        });
     },
 
     deleteCurrentJabatan() {
