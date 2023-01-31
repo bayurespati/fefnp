@@ -19,17 +19,7 @@
           <v-spacer></v-spacer>
           <v-divider></v-divider>
           <v-card-text>
-            <v-row align="center" class="mx-0">
-              <v-rating
-                :value="4.5"
-                color="amber"
-                dense
-                half-increments
-                readonly
-                size="14"
-              ></v-rating>
-              <div class="grey--text ms-4">4.5 (413)</div>
-            </v-row>
+            <v-row align="center" class="mx-0"> </v-row>
             <div class="my-4 text-subtitle-1"></div>
             <div>
               Posisi : {{ kandidat.user.role.position.name }}

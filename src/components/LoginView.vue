@@ -14,6 +14,7 @@
                 autocomplete="username"
                 placeholder="Username"
                 v-model="auth.username"
+                v-on:keyup.enter="login()"
               />
             </div>
 
@@ -27,6 +28,7 @@
                 v-model="auth.password"
                 autocomplete="current-password"
                 placeholder="Password"
+                v-on:keyup.enter="login()"
               />
             </div>
             <div class="input-error" v-if="message">
@@ -39,6 +41,7 @@
               class="btn btn-primary"
               style="color: white"
               @click="login()"
+              v-on:keyup.enter="login()"
             >
               Masuk
             </button>
