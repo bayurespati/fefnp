@@ -10,6 +10,7 @@ const axios = Axios.create({
 });
 
 axios.defaults.baseURL = process.env.VUE_APP_URL;
+// axios.defaults.baseURL = process.env.VUE_APP_URL_SERVER;
 
 axios.interceptors.request.use((config) => {
   const token = store.getters.getTokens;

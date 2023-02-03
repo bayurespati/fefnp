@@ -96,9 +96,15 @@ export default {
         permission: [1, 2],
       },
       {
-        icon: "mdi-18px mdi-clipboard-text",
+        icon: "mdi-18px mdi-account-check",
         text: "Penilaian",
         link: "/penilaian",
+        permission: [1, 2],
+      },
+      {
+        icon: "mdi-18px mdi-clipboard-text",
+        text: "Resume",
+        link: "/resume",
         permission: [1, 2],
       },
       {
@@ -117,7 +123,7 @@ export default {
         permission: [1, 2],
       },
       {
-        icon: "mdi-18px mdi-clipboard-text",
+        icon: "mdi-18px mdi-account-check",
         text: "Penilaian",
         link: "/penguji-penilaian",
         permission: [1, 2],

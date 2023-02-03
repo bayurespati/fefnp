@@ -27,6 +27,20 @@ const actions = {
     });
   },
 
+  getJabatanResume({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get("/api/tpro/jabatan/resume", data)
+        .then((response) => {
+          commit;
+          resolve(response);
+        })
+        .catch((errors) => {
+          reject(errors.response.data.errors);
+        });
+    });
+  },
+
   storeJabatan({ commit }, data) {
     return new Promise((resolve, reject) => {
       axios

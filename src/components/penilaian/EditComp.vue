@@ -4,14 +4,14 @@
       <v-col cols="4" class="pl-0">
         <v-card outlined elevation="5">
           <v-layout column align-center class="mt-5">
-            <v-avatar color="indigo" size="150">
+            <v-avatar color="indigo" size="250">
               <img
                 v-if="calon.user.image"
                 :src="calon.user.image ? calon.user.image.link : 'goks.avif'"
               />
-              <span v-else class="white--text bold text-h2">{{
-                calon.user.name | name
-              }}</span>
+              <span v-else class="white--text bold text-h2">
+                {{ calon.user.name | name }}
+              </span>
             </v-avatar>
             <v-list-item-title class="text-h6">
               {{ calon.user.name }}
@@ -50,7 +50,6 @@
             <v-tab v-for="(n, key) in calon.penilaian" :key="key">
               {{ n.penguji.user.name }}
             </v-tab>
-
             <v-tab-item v-for="(n, index) in calon.penilaian" :key="index">
               <v-container fluid>
                 <v-simple-table>

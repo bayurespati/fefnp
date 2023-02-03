@@ -9,6 +9,7 @@ import Kandidat from "./components/kandidat/IndexView.vue";
 import Penilaian from "./components/penilaian/IndexView.vue";
 import Target from "./components/target/IndexView.vue";
 import Jabatan from "./components/jabatan/IndexView.vue";
+import Resume from "./components/resume/IndexView.vue";
 
 import PengujiKandidat from "./components/penguji/kandidat/IndexView.vue";
 import PengujiPenilaian from "./components/penguji/penilaian/IndexView.vue";
@@ -42,6 +43,12 @@ const router = new Router({
           path: "penilaian",
           name: "Penilaian",
           component: Penilaian,
+          meta: { authorize: "TSPRO HCM" },
+        },
+        {
+          path: "resume",
+          name: "Resume",
+          component: Resume,
           meta: { authorize: "TSPRO HCM" },
         },
         {

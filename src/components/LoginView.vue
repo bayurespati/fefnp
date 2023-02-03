@@ -91,8 +91,11 @@ export default {
                 self.$store
                   .dispatch("getRole")
                   .then((response) => {
-                    if (response == "Abort")
+                    if (response == "Abort") {
                       self.message = "User belum terdafatar";
+                      self.$store.dispatch("logout", this.$route.name);
+                    }
+                    self.isRequest = false;
                   })
                   .catch(() => {
                     self.isRequest = false;
@@ -102,9 +105,9 @@ export default {
                 self.isRequest = false;
               });
           })
-          .catch((errors) => {
+          .catch((error) => {
             self.isRequest = false;
-            self.message = errors.data.message;
+            self.message = error.data ? error.data.message : "";
           });
       }
     },
