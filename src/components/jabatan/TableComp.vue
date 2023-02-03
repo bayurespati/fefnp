@@ -78,6 +78,9 @@
         </div>
       </template>
       <template v-slot:[`item.action`]="{ item }">
+        <v-icon color="green" small class="mr-2" @click="view(item)">
+          mdi-eye
+        </v-icon>
         <v-icon color="red" small class="mr-2" @click="openDialog(item)">
           mdi-delete
         </v-icon>
@@ -192,8 +195,9 @@ export default {
       this.$emit("changeStatus", "add");
     },
 
-    edit(item) {
-      this.$emit("showEdit", item);
+    view(item) {
+      console.log(item);
+      this.$emit("showView", item);
     },
   },
 };

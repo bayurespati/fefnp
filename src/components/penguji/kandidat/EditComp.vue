@@ -2,8 +2,22 @@
   <div>
     <v-card>
       <v-card-title>
-        <span class="title">Mapping Target</span>
+        <span class="title">
+          {{ kandidat.user.name }}
+          - {{ kandidat.user.role.position.name }}
+        </span>
       </v-card-title>
+      <v-card-subtitle>
+        SANGAT KURANG
+        <span style="font-weight: bold"> (0-20) </span> &nbsp;&nbsp;&nbsp;
+        KURANG
+        <span style="font-weight: bold"> (>20-40) </span> &nbsp;&nbsp;&nbsp;
+        CUKUP
+        <span style="font-weight: bold"> (>40-60) </span> &nbsp;&nbsp;&nbsp;
+        BAIK
+        <span style="font-weight: bold"> (>60-80) </span> &nbsp;&nbsp;&nbsp;
+        BAIK SEKALI <span style="font-weight: bold"> (>80-100) </span>
+      </v-card-subtitle>
       <v-form v-model="valid">
         <v-container>
           <v-row>

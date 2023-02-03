@@ -10,18 +10,18 @@
           <transition name="fade-transition">
             <list
               v-if="status === 'table'"
-              @showEdit="showEdit($event)"
+              @showView="show($event)"
               @changeStatus="changeStatus($event)"
             ></list>
             <add
               v-if="status === 'add'"
               @cancelAdd="changeStatus($event)"
             ></add>
-            <edit
-              v-if="status === 'edit'"
-              @cancelEdit="changeStatus($event)"
+            <show
+              v-if="status === 'show'"
+              @cancelShow="changeStatus($event)"
               :target="target"
-            ></edit>
+            ></show>
           </transition>
         </v-col>
       </v-row>
@@ -31,7 +31,7 @@
 
 <script>
 import List from "./TableComp.vue";
-import Edit from "./EditComp.vue";
+import Show from "./ShowView.vue";
 import Add from "./AddComp.vue";
 
 export default {
@@ -44,7 +44,7 @@ export default {
 
   components: {
     List,
-    Edit,
+    Show,
     Add,
   },
 
@@ -57,12 +57,13 @@ export default {
       }, 300);
     },
 
-    showEdit(value) {
+    show(value) {
+      console.log(value);
       let self = this;
       this.status = "";
       self.target = value;
       setTimeout(function () {
-        self.status = "edit";
+        self.status = "show";
       }, 300);
     },
   },

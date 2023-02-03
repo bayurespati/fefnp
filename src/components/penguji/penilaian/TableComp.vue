@@ -25,7 +25,7 @@
       :footer-props="footerProps"
     >
       <template v-slot:[`item.action`]="{ item }">
-        <v-icon color="orange" small class="mr-2" @click="edit(item)">
+        <v-icon color="green" small class="mr-2" @click="edit(item)">
           mdi-eye
         </v-icon>
       </template>

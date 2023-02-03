@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <v-card class="anjing">
+        <v-card>
           <v-card-title>
             <div>
               <h4>
@@ -10,7 +10,13 @@
               </h4>
             </div>
             <v-spacer></v-spacer>
-            <v-btn rounded color="primary" dark @click="downloadItem()" class="mr-2">
+            <v-btn
+              rounded
+              color="primary"
+              dark
+              @click="downloadItem()"
+              class="mr-2"
+            >
               Download
             </v-btn>
             <v-btn rounded color="success" dark @click="close()"> BACK </v-btn>
@@ -114,7 +120,7 @@ export default {
           const blob = new Blob([response.data], { type: "application/*" });
           const link = document.createElement("a");
           link.href = URL.createObjectURL(blob);
-          link.download =  this.jabatan.target.nama+ ".pdf";
+          link.download = this.jabatan.target.nama + ".pdf";
           link.click();
           URL.revokeObjectURL(link.href);
         })
