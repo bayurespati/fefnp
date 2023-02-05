@@ -4,10 +4,16 @@
       <v-col cols="4" class="pl-0">
         <v-card outlined elevation="5">
           <v-layout column align-center class="mt-5">
-            <v-avatar size="150">
+            <v-avatar color="indigo" size="250">
               <img
-                src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg"
+                v-if="kandidat.user.image"
+                :src="
+                  kandidat.user.image ? kandidat.user.image.link : 'goks.avif'
+                "
               />
+              <span v-else class="white--text bold text-h2">
+                {{ kandidat.user.name | name }}
+              </span>
             </v-avatar>
             <v-list-item-title class="text-h6">
               {{ kandidat.user.name }}
@@ -232,6 +238,13 @@ export default {
     length: 3,
     window: 0,
   }),
+
+  filters: {
+    name: function (data) {
+      let temp = data.split(" ");
+      return temp[0][0] + temp[temp.length - 1][0];
+    },
+  },
 
   methods: {
     close() {
