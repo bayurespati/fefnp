@@ -88,6 +88,8 @@ export default {
             self.$store
               .dispatch("getUser")
               .then(() => {
+                self.$store.dispatch("getPosition");
+
                 self.$store
                   .dispatch("getRole")
                   .then((response) => {

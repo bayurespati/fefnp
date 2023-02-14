@@ -6,6 +6,8 @@ const state = {
   user: {},
   token: "",
   menu: "",
+  position: "",
+  select_position: "",
   role: null,
 };
 
@@ -21,6 +23,12 @@ const getters = {
   },
   getRole(state) {
     return state.role;
+  },
+  getPosition(state) {
+    return state.position;
+  },
+  getSelectPosition(state) {
+    return state.select_position;
   },
 };
 
@@ -39,6 +47,24 @@ const mutations = {
 
   SET_ROLE(state, value) {
     state.role = value;
+  },
+
+  SET_POSITION(state, value) {
+    state.position = value;
+  },
+
+  SET_SELECT_POSITION(state, { _array = null, _object = null }) {
+    if (_array == null && _object == null) state.select_position = "";
+
+    if (_array != null) {
+      for (var i = 0; i < _array.length; i++) {
+        if (_array[i].is_pgs == 0) state.select_position = _array[i];
+      }
+    }
+
+    if (_object != null) {
+      state.select_position = _object;
+    }
   },
 };
 
@@ -95,6 +121,11 @@ const actions = {
           commit("SET_USER", {});
           commit("SET_TOKEN", null);
           commit("SET_ROLE", null);
+          commit("SET_POSITION", null);
+          commit("SET_SELECT_POSITION", {
+            _array: null,
+            _object: null,
+          });
           commit("SET_MENU", null);
           reject(errors.response);
         });
@@ -113,6 +144,38 @@ const actions = {
           commit("SET_USER", {});
           commit("SET_TOKEN", null);
           commit("SET_ROLE", null);
+          commit("SET_POSITION", null);
+          commit("SET_SELECT_POSITION", {
+            _array: null,
+            _object: null,
+          });
+          commit("SET_MENU", null);
+          reject(errors.response);
+        });
+    });
+  },
+
+  getPosition({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get("/api/user/profile/get-position")
+        .then((response) => {
+          commit("SET_POSITION", response.data.data);
+          commit("SET_SELECT_POSITION", {
+            _array: response.data.data,
+            _object: this.temp_position,
+          });
+          resolve();
+        })
+        .catch((errors) => {
+          commit("SET_USER", {});
+          commit("SET_TOKEN", null);
+          commit("SET_ROLE", null);
+          commit("SET_POSITION", null);
+          commit("SET_SELECT_POSITION", {
+            _array: null,
+            _object: null,
+          });
           commit("SET_MENU", null);
           reject(errors.response);
         });
@@ -131,6 +194,11 @@ const actions = {
           commit("SET_USER", {});
           commit("SET_TOKEN", null);
           commit("SET_ROLE", null);
+          commit("SET_POSITION", null);
+          commit("SET_SELECT_POSITION", {
+            _array: null,
+            _object: null,
+          });
           commit("SET_MENU", null);
           resolve(response);
           if (data != "Login") router.push({ name: "Login" });

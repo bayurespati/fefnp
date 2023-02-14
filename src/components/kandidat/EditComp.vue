@@ -9,9 +9,9 @@
                 v-if="calon.user.image"
                 :src="calon.user.image ? calon.user.image.link : 'goks.avif'"
               />
-              <span v-else class="white--text bold text-h2">{{
-                calon.user.name | name
-              }}</span>
+              <span v-else class="white--text bold text-h2">
+                {{ calon.user.name | name }}
+              </span>
             </v-avatar>
             <v-list-item-title class="text-h6">
               {{ calon.user.name }}
@@ -48,7 +48,7 @@
           </v-card-title>
           <v-tabs color="deep-purple accent-4" left>
             <v-tab v-for="(n, key) in calon.penilaian" :key="key">
-              {{ n.penguji.user.name }}
+              {{ n.penguji.user_role.user.name }}
             </v-tab>
 
             <v-tab-item v-for="(n, index) in calon.penilaian" :key="index">

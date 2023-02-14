@@ -9,12 +9,10 @@ const axios = Axios.create({
   },
 });
 
-
-console.log();
-if(process.env.VUE_APP_LOCATION == 'LOCAL'){
+if (process.env.VUE_APP_LOCATION == "LOCAL") {
   axios.defaults.baseURL = process.env.VUE_APP_URL_LOCAL;
-}else{
-  axios.defaults.baseURL = process.env.VUE_APP_URL_SERVER; 
+} else {
+  axios.defaults.baseURL = process.env.VUE_APP_URL_SERVER;
 }
 
 axios.interceptors.request.use((config) => {

@@ -129,8 +129,9 @@ export default {
             self.isRequest = false;
             self.closeDialog();
           })
-          .catch(() => {
+          .catch((error) => {
             self.key_word = "";
+            window.events.$emit("flash", error, "danger");
             self.isRequest = false;
             self.closeDialog();
           });

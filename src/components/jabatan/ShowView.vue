@@ -31,7 +31,7 @@
                             ? kandidat.user.image.link
                             : 'image/round-logo-pins.png'
                         "
-                        alt=""
+                        alt="direktorat_id"
                       />
                     </v-avatar>
                   </v-layout>
@@ -66,8 +66,8 @@
                     >
                       <img
                         :src="
-                          penguji.user.image
-                            ? penguji.user.image.link
+                          penguji.user_role.user.image
+                            ? penguji.user_role.user.image.link
                             : 'image/round-logo-pins.png'
                         "
                         alt=""
@@ -78,10 +78,10 @@
                 <v-col cols="10" class="pl-0">
                   <v-card-subtitle class="pl-0">
                     <span style="font-weight: bold">
-                      {{ penguji.user.name }}
+                      {{ penguji.user_role.user.name }}
                       <br />
                     </span>
-                    {{ penguji.user.role.position.name }}
+                    {{ penguji.user_role.position.name }}
                   </v-card-subtitle>
                 </v-col>
               </v-row>

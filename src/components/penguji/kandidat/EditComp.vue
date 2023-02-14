@@ -3,8 +3,8 @@
     <v-card>
       <v-card-title>
         <span class="title">
-          {{ kandidat.user.name }}
-          - {{ kandidat.user.role.position.name }}
+          {{ kandidat.user.name }} -
+          {{ kandidat.user.role.position.name }}
         </span>
       </v-card-title>
       <v-card-subtitle>

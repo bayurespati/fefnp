@@ -40,7 +40,7 @@
                     :key="index"
                     class="text-center"
                   >
-                    {{ penguji.user.name }}
+                    {{ penguji.user_role.user.name }}
                   </th>
                 </tr>
               </thead>
@@ -111,7 +111,10 @@ export default {
     },
 
     downloadItem() {
-      let url = process.env.VUE_APP_URL;
+      let url =
+        process.env.VUE_APP_LOCATION == "LOCAL"
+          ? process.env.VUE_APP_URL_LOCAL
+          : process.env.VUE_APP_URL_SERVER;
       Axios.get(url + "/api/tpro/penilaian/export-resume", {
         params: { id: this.jabatan.id },
         responseType: "blob",

@@ -64,7 +64,7 @@ const actions = {
           resolve(response.data);
         })
         .catch((errors) => {
-          reject(errors.response.data.errors);
+          reject(errors.response.data);
         });
     });
   },

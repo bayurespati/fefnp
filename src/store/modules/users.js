@@ -30,6 +30,20 @@ const actions = {
         });
     });
   },
+
+  getRoleUsers({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get("/api/cms/userrole/get-full")
+        .then((response) => {
+          resolve(response.data);
+          commit("set_users", response.data.data);
+        })
+        .catch((errors) => {
+          reject(errors.response.data.errors);
+        });
+    });
+  },
 };
 
 export default {

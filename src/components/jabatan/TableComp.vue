@@ -196,7 +196,6 @@ export default {
     },
 
     view(item) {
-      console.log(item);
       this.$emit("showView", item);
     },
   },

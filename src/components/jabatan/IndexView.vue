@@ -58,7 +58,6 @@ export default {
     },
 
     show(value) {
-      console.log(value);
       let self = this;
       this.status = "";
       self.target = value;

@@ -58,8 +58,23 @@
       <v-app-bar app dense color="white">
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
         <v-toolbar-title>
-          <span class="font-weight-light"> {{ user.name }} </span>
+          <span class="font-weight-light">
+            {{ user.name }}
+          </span>
+          -
+          <span class="font-weight-light">
+            {{ select_position.position.name }}
+          </span>
         </v-toolbar-title>
+
+        <v-tooltip bottom v-if="position.length > 1">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon v-bind="attrs" v-on="on" @click="dialog = !dialog">
+              <v-icon color="blue"> mdi-account-settings </v-icon>
+            </v-btn>
+          </template>
+          <span>Pilih Jabatan</span>
+        </v-tooltip>
         <v-spacer></v-spacer>
         <v-btn color="gray" @click="logout">
           <span> Sign Out </span>
@@ -73,6 +88,41 @@
     <div style="margin-top: 100px">
       <flash></flash>
     </div>
+    <!--======================================================================================
+          MODAL
+      ==========================================================================================-->
+    <v-dialog v-model="dialog" class="text-center" max-width="500px">
+      <v-card class="text-center pb-0">
+        <v-card-text class="pb-0">
+          <v-container>
+            <v-row>
+              <v-col cols="12" class="text-center mb-0">
+                <v-select
+                  :items="position"
+                  item-text="position.name"
+                  v-model="temp_position"
+                  return-object
+                  label="Jabatan"
+                  outlined
+                ></v-select>
+                <v-btn
+                  color="green darken-1"
+                  @click="setPosition()"
+                  outlined
+                  text
+                  sm
+                >
+                  <v-tooltip activator="parent" location="bottom">
+                    <span> Pilih Jabatan </span>
+                  </v-tooltip>
+                  Pilih
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -82,6 +132,8 @@ import { mapGetters } from "vuex";
 export default {
   data: () => ({
     drawer: null,
+    dialog: false,
+    temp_position: "",
     hr: [
       {
         icon: "mdi-18px mdi-crown",
@@ -145,6 +197,8 @@ export default {
     ...mapGetters({
       user: "getUser",
       role: "getRole",
+      position: "getPosition",
+      select_position: "getSelectPosition",
     }),
 
     menus() {
@@ -160,6 +214,18 @@ export default {
     isHasPermision(item) {
       if (this.user.role_id != undefined)
         return item.permission.includes(this.user.role_id);
+    },
+
+    closeDialog() {
+      this.dialog = false;
+    },
+
+    setPosition() {
+      this.$store.commit("SET_SELECT_POSITION", {
+        _array: null,
+        _object: this.temp_position,
+      });
+      this.dialog = false;
     },
 
     logout() {

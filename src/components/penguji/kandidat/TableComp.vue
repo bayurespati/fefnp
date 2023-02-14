@@ -66,7 +66,15 @@ export default {
   computed: {
     ...mapGetters({
       user: "getUser",
+      position: "getPosition",
+      select_position: "getSelectPosition",
     }),
+  },
+
+  watch: {
+    select_position() {
+      this.getKandidats();
+    },
   },
 
   methods: {
@@ -74,7 +82,7 @@ export default {
       let self = this;
 
       const data = {
-        user_id: this.user.id,
+        user_role_id: this.select_position.id,
       };
 
       self.$store.dispatch("getKandidats", data).then((response) => {

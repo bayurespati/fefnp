@@ -46,11 +46,7 @@
                     v-on="on"
                   ></v-text-field>
                 </template>
-                <v-date-picker
-                  v-model="model.tanggal"
-                  no-title
-                  scrollable
-                >
+                <v-date-picker v-model="model.tanggal" no-title scrollable>
                   <v-spacer></v-spacer>
                   <v-btn text color="primary" @click="menu = false">
                     Cancel
@@ -69,7 +65,7 @@
             <!--======================================================================================
                 KANDIDAT 
             ==========================================================================================-->
-              <v-col cols="12" xs="12" md="6">
+            <v-col cols="12" xs="12" md="6">
               <v-autocomplete
                 v-model="model.kandidat"
                 :items="users"
@@ -83,18 +79,26 @@
             </v-col>
 
             <!--======================================================================================
-                KANDIDAT 
+                PENGUJI 
             ==========================================================================================-->
-              <v-col cols="12" xs="12" md="6">
+            <v-col cols="12" xs="12" md="6">
               <v-autocomplete
                 v-model="model.penguji"
-                :items="users"
-                item-text="name"
+                :items="penguji"
+                item-text="user.name"
                 item-value="id"
                 label="Penguji"
                 small-chips
                 multiple
               >
+                <template v-slot:selection="{ item }">
+                  <v-chip>
+                    {{ item.user.name }} - {{ item.position.name }}
+                  </v-chip>
+                </template>
+                <template v-slot:item="{ item }">
+                  {{ item.user.name }} - {{ item.position.name }}
+                </template>
               </v-autocomplete>
             </v-col>
 
@@ -120,7 +124,6 @@
   </div>
 </template>
 <script>
-
 import { required } from "vuelidate/lib/validators";
 
 export default {
@@ -131,13 +134,14 @@ export default {
         target: "",
         kandidat: "",
         penguji: "",
-        user: ""
+        user: "",
       },
       valid: false,
       isRequest: false,
       alert: true,
-      users:[],
-      targets:[],
+      users: [],
+      penguji: [],
+      targets: [],
     };
   },
 
@@ -151,7 +155,6 @@ export default {
   },
 
   computed: {
-
     isValid() {
       return this.targetError.length == 0;
     },
@@ -159,13 +162,15 @@ export default {
     targetError() {
       const errors = [];
       if (!this.$v.model.target.$dirty) return errors;
-      !this.$v.model.target.required && errors.push("Target jabatan harus diisi");
+      !this.$v.model.target.required &&
+        errors.push("Target jabatan harus diisi");
       return errors;
     },
   },
 
   beforeMount() {
     this.getUsers();
+    this.getPenguji();
     this.getTargets();
   },
 
@@ -174,6 +179,13 @@ export default {
       let self = this;
       self.$store.dispatch("getUsers").then((response) => {
         self.users = response.data;
+      });
+    },
+
+    getPenguji() {
+      let self = this;
+      self.$store.dispatch("getRoleUsers").then((response) => {
+        self.penguji = response.data;
       });
     },
 

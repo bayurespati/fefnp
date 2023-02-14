@@ -72,7 +72,7 @@ const actions = {
   deleteJabatan({ commit }, data) {
     return new Promise((resolve, reject) => {
       axios
-        .delete("/api/tpro/target/" + data)
+        .delete("/api/tpro/jabatan/" + data)
         .then((response) => {
           commit;
           resolve(response.data);

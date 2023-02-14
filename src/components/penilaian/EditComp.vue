@@ -48,7 +48,7 @@
           </v-card-title>
           <v-tabs color="deep-purple accent-4" left>
             <v-tab v-for="(n, key) in calon.penilaian" :key="key">
-              {{ n.penguji.user.name }}
+              {{ n.penguji.user_role.user.name }}
             </v-tab>
             <v-tab-item v-for="(n, index) in calon.penilaian" :key="index">
               <v-container fluid>
@@ -269,7 +269,10 @@ export default {
     },
 
     downloadItem(n) {
-      let url = process.env.VUE_APP_URL;
+      let url =
+        process.env.VUE_APP_LOCATION == "LOCAL"
+          ? process.env.VUE_APP_URL_LOCAL
+          : process.env.VUE_APP_URL_SERVER;
       Axios.get(url + "/api/tpro/penilaian/export", {
         params: { id: n.id },
         responseType: "blob",
@@ -278,7 +281,7 @@ export default {
           const blob = new Blob([response.data], { type: "application/*" });
           const link = document.createElement("a");
           link.href = URL.createObjectURL(blob);
-          link.download = n.penguji.user.name + ".pdf";
+          link.download = n.penguji.user_role.user.name + ".pdf";
           link.click();
           URL.revokeObjectURL(link.href);
         })

@@ -21,7 +21,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios
         .get("/api/tpro/penguji/kandidat", {
-          params: { user_id: data.user_id },
+          params: { user_role_id: data.user_role_id },
         })
         .then((response) => {
           resolve(response.data);
@@ -37,7 +37,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios
         .get("/api/tpro/penguji/penilaian-kandidat", {
-          params: { user_id: data.user_id },
+          params: { user_role_id: data.user_role_id },
         })
         .then((response) => {
           commit;
