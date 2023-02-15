@@ -15,11 +15,11 @@
               @showEdit="showEdit($event)"
               @changeStatus="changeStatus($event)"
             ></list>
-            <edit
+            <show
               v-if="status === 'edit'"
               @cancelEdit="changeStatus($event)"
               :jabatan="jabatan"
-            ></edit>
+            ></show>
           </transition>
         </v-col>
       </v-row>
@@ -29,7 +29,7 @@
 
 <script>
 import List from "./TableComp.vue";
-import Edit from "./EditComp.vue";
+import Show from "./ShowComp.vue";
 export default {
   data() {
     return {
@@ -40,7 +40,7 @@ export default {
 
   components: {
     List,
-    Edit,
+    Show,
   },
 
   methods: {

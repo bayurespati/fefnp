@@ -8,6 +8,8 @@
         </span>
       </v-card-title>
       <v-card-subtitle>
+        Berilah nilai pada kolom di bawah ini dengan ketentuan sebagai berikut:
+        <br />
         SANGAT KURANG
         <span style="font-weight: bold"> (0-20) </span> &nbsp;&nbsp;&nbsp;
         KURANG
@@ -355,8 +357,7 @@
 </template>
 
 <script>
-// import kandidat from "@/store/modules/kandidat";
-import { required } from "vuelidate/lib/validators";
+import { required, maxValue, minValue } from "vuelidate/lib/validators";
 export default {
   props: { kandidat: {} },
   data() {
@@ -403,13 +404,29 @@ export default {
 
   validations: {
     model: {
-      enthuasiasm: { required },
-      totality: { required },
-      decision_making: { required },
-      business_acumen: { required },
-      visionery_thinking: { required },
-      networking: { required },
-      culture_implementation: { required },
+      enthuasiasm: { required, maxValue: maxValue(100), minValue: minValue(0) },
+      totality: { required, maxValue: maxValue(100), minValue: minValue(0) },
+      decision_making: {
+        required,
+        maxValue: maxValue(100),
+        minValue: minValue(0),
+      },
+      business_acumen: {
+        required,
+        maxValue: maxValue(100),
+        minValue: minValue(0),
+      },
+      visionery_thinking: {
+        required,
+        maxValue: maxValue(100),
+        minValue: minValue(0),
+      },
+      networking: { required, maxValue: maxValue(100), minValue: minValue(0) },
+      culture_implementation: {
+        required,
+        maxValue: maxValue(100),
+        minValue: minValue(0),
+      },
       success_story: { required },
       winning_program: { required },
       kesimpulan: { required },
@@ -423,6 +440,10 @@ export default {
       if (!this.$v.model.totality.$dirty) return errors;
       !this.$v.model.totality.required &&
         errors.push("Nilai Totality harus diisi");
+      !this.$v.model.totality.maxValue &&
+        errors.push("Nilai Totality Maksimal 100");
+      !this.$v.model.totality.minValue &&
+        errors.push("Nilai Totality Minimal 0");
       return errors;
     },
 
@@ -431,6 +452,10 @@ export default {
       if (!this.$v.model.enthuasiasm.$dirty) return errors;
       !this.$v.model.enthuasiasm.required &&
         errors.push("Nilai Enthuasiasm harus diisi");
+      !this.$v.model.enthuasiasm.maxValue &&
+        errors.push("Nilai Enthuasiasm Maksimal 100");
+      !this.$v.model.enthuasiasm.minValue &&
+        errors.push("Nilai Enthuasiasm Minimal 0");
       return errors;
     },
 
@@ -439,6 +464,10 @@ export default {
       if (!this.$v.model.decision_making.$dirty) return errors;
       !this.$v.model.decision_making.required &&
         errors.push("Nilai Decision Making harus diisi");
+      !this.$v.model.decision_making.maxValue &&
+        errors.push("Nilai Decision Making Maksimal 100");
+      !this.$v.model.decision_making.minValue &&
+        errors.push("Nilai Decision Making Minimal 0");
       return errors;
     },
 
@@ -447,6 +476,10 @@ export default {
       if (!this.$v.model.business_acumen.$dirty) return errors;
       !this.$v.model.business_acumen.required &&
         errors.push("Nilai Business Acumen harus diisi");
+      !this.$v.model.business_acumen.maxValue &&
+        errors.push("Nilai Business Acumen Maksimal 100");
+      !this.$v.model.business_acumen.minValue &&
+        errors.push("Nilai Business Acumen Minimal 0");
       return errors;
     },
 
@@ -455,6 +488,10 @@ export default {
       if (!this.$v.model.visionery_thinking.$dirty) return errors;
       !this.$v.model.visionery_thinking.required &&
         errors.push("Nilai Visionery Thinking harus diisi");
+      !this.$v.model.visionery_thinking.maxValue &&
+        errors.push("Nilai Visionery Thinking Maksimal 100");
+      !this.$v.model.visionery_thinking.minValue &&
+        errors.push("Nilai Visionery Thinking Minimal 0");
       return errors;
     },
 
@@ -463,6 +500,10 @@ export default {
       if (!this.$v.model.networking.$dirty) return errors;
       !this.$v.model.networking.required &&
         errors.push("Nilai Networking harus diisi");
+      !this.$v.model.networking.maxValue &&
+        errors.push("Nilai Networking Maksimal 100");
+      !this.$v.model.networking.minValue &&
+        errors.push("Nilai Networking Minimal 0");
       return errors;
     },
 
@@ -471,6 +512,10 @@ export default {
       if (!this.$v.model.culture_implementation.$dirty) return errors;
       !this.$v.model.culture_implementation.required &&
         errors.push("Nilai Culture Implementation harus diisi");
+      !this.$v.model.culture_implementation.maxValue &&
+        errors.push("Nilai Culture Implementation Maksimal 100");
+      !this.$v.model.culture_implementation.minValue &&
+        errors.push("Nilai Culture Implementation Minimal 0");
       return errors;
     },
 

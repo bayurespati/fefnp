@@ -136,6 +136,12 @@ export default {
     temp_position: "",
     hr: [
       {
+        icon: "mdi-18px mdi-target",
+        text: "Target",
+        link: "/target",
+        permission: [1, 2],
+      },
+      {
         icon: "mdi-18px mdi-crown",
         text: "Jabatan",
         link: "/jabatan",
@@ -157,12 +163,6 @@ export default {
         icon: "mdi-18px mdi-clipboard-text",
         text: "Resume",
         link: "/resume",
-        permission: [1, 2],
-      },
-      {
-        icon: "mdi-18px mdi-target",
-        text: "Target",
-        link: "/target",
         permission: [1, 2],
       },
     ],

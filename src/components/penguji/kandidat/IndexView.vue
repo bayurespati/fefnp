@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import List from "./TableComp.vue";
 import Edit from "./EditComp.vue";
 
@@ -42,6 +43,18 @@ export default {
   components: {
     List,
     Edit,
+  },
+
+  computed: {
+    ...mapGetters({
+      select_position: "getSelectPosition",
+    }),
+  },
+
+  watch: {
+    select_position() {
+      this.status = "table";
+    },
   },
 
   methods: {
