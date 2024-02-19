@@ -333,7 +333,7 @@
               </v-text-field>
             </v-col>
 
-            <v-col cols="6" xs="12" md="6" dense>
+            <v-col cols="8" xs="12" md="8" dense>
               <v-textarea
                 @input="$v.model.catatan_kesimpulan.$touch()"
                 @blur="$v.model.catatan_kesimpulan.$touch()"
@@ -377,13 +377,13 @@ export default {
   data() {
     return {
       model: {
-        enthuasiasm: 0,
-        totality: 0,
-        decision_making: 0,
-        business_acumen: 0,
-        visionery_thinking: 0,
-        networking: 0,
-        culture_implementation: 0,
+        enthuasiasm: "",
+        totality: "",
+        decision_making: "",
+        business_acumen: "",
+        visionery_thinking: "",
+        networking: "",
+        culture_implementation: "",
         success_story: "",
         winning_program: "",
         kesimpulan: "",
@@ -568,7 +568,17 @@ export default {
 
     isValid() {
       return (
-        this.totalityError.length == 0 && this.enthuasiasmError.length == 0
+        this.totalityError.length == 0 &&
+        this.enthuasiasmError.length == 0 &&
+        this.decisionMakingError.length == 0 &&
+        this.businessAcumenError.length == 0 &&
+        this.visioneryThinkingError.length == 0 &&
+        this.networkingError.length == 0 &&
+        this.cultureImplementationError.length == 0 &&
+        this.successStoryError.length == 0 &&
+        this.winningProgramError.length == 0 &&
+        this.kesimpulanError.length == 0 &&
+        this.catatanKesimpulanError.length == 0
       );
     },
   },
@@ -580,13 +590,13 @@ export default {
 
     calculate() {
       const total =
-        parseInt(this.model.enthuasiasm) +
-        parseInt(this.model.totality) +
-        parseInt(this.model.decision_making) +
-        parseInt(this.model.business_acumen) +
-        parseInt(this.model.visionery_thinking) +
-        parseInt(this.model.networking) +
-        parseInt(this.model.culture_implementation);
+        parseInt(this.model.enthuasiasm ?? 0) +
+        parseInt(this.model.totality ?? 0) +
+        parseInt(this.model.decision_making ?? 0) +
+        parseInt(this.model.business_acumen ?? 0) +
+        parseInt(this.model.visionery_thinking ?? 0) +
+        parseInt(this.model.networking ?? 0) +
+        parseInt(this.model.culture_implementation ?? 0);
       const average = total / 7;
       this.model.average = parseInt(average);
       if (average <= 60) {
