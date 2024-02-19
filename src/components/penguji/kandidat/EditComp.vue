@@ -36,7 +36,7 @@
                 <template v-slot:activator="{}">
                   <v-text-field
                     @input="$v.model.enthuasiasm.$touch()"
-                    @blur="$v.model.enthuasiasm.$touch()"
+                    @blur="$v.model.enthuasiasm.$touch(), calculate()"
                     @focusout="showTooltip('enthuasiasm')"
                     @focusin="showTooltip('enthuasiasm')"
                     v-model="model.enthuasiasm"
@@ -69,7 +69,7 @@
                 <template v-slot:activator="{}">
                   <v-text-field
                     @input="$v.model.totality.$touch()"
-                    @blur="$v.model.totality.$touch()"
+                    @blur="$v.model.totality.$touch(), calculate()"
                     @focusout="showTooltip('totality')"
                     @focusin="showTooltip('totality')"
                     v-model="model.totality"
@@ -102,7 +102,7 @@
                 <template v-slot:activator="{}">
                   <v-text-field
                     @input="$v.model.decision_making.$touch()"
-                    @blur="$v.model.decision_making.$touch()"
+                    @blur="$v.model.decision_making.$touch(), calculate()"
                     @focusout="showTooltip('decision_making')"
                     @focusin="showTooltip('decision_making')"
                     v-model="model.decision_making"
@@ -135,7 +135,7 @@
                 <template v-slot:activator="{}">
                   <v-text-field
                     @input="$v.model.business_acumen.$touch()"
-                    @blur="$v.model.business_acumen.$touch()"
+                    @blur="$v.model.business_acumen.$touch(), calculate()"
                     @focusout="showTooltip('business_acumen')"
                     @focusin="showTooltip('business_acumen')"
                     v-model="model.business_acumen"
@@ -168,7 +168,7 @@
                 <template v-slot:activator="{}">
                   <v-text-field
                     @input="$v.model.visionery_thinking.$touch()"
-                    @blur="$v.model.visionery_thinking.$touch()"
+                    @blur="$v.model.visionery_thinking.$touch(), calculate()"
                     @focusout="showTooltip('visionery_thinking')"
                     @focusin="showTooltip('visionery_thinking')"
                     v-model="model.visionery_thinking"
@@ -202,7 +202,7 @@
                 <template v-slot:activator="{}">
                   <v-text-field
                     @input="$v.model.networking.$touch()"
-                    @blur="$v.model.networking.$touch()"
+                    @blur="$v.model.networking.$touch(), calculate()"
                     @focusout="showTooltip('networking')"
                     @focusin="showTooltip('networking')"
                     v-model="model.networking"
@@ -236,7 +236,9 @@
                 <template v-slot:activator="{}">
                   <v-text-field
                     @input="$v.model.culture_implementation.$touch()"
-                    @blur="$v.model.culture_implementation.$touch()"
+                    @blur="
+                      $v.model.culture_implementation.$touch(), calculate()
+                    "
                     @focusout="showTooltip('culture_implementation')"
                     @focusin="showTooltip('culture_implementation')"
                     v-model="model.culture_implementation"
@@ -316,6 +318,7 @@
                 outlined
                 required
                 small-chips
+                disabled
               ></v-select>
             </v-col>
 
@@ -363,13 +366,13 @@ export default {
   data() {
     return {
       model: {
-        enthuasiasm: "",
-        totality: "",
-        decision_making: "",
-        business_acumen: "",
-        visionery_thinking: "",
-        networking: "",
-        culture_implementation: "",
+        enthuasiasm: 0,
+        totality: 0,
+        decision_making: 0,
+        business_acumen: 0,
+        visionery_thinking: 0,
+        networking: 0,
+        culture_implementation: 0,
         success_story: "",
         winning_program: "",
         kesimpulan: "",
@@ -562,6 +565,26 @@ export default {
     showTooltip(att) {
       this.tooltip[att] = !this.tooltip[att];
     },
+
+    calculate() {
+      const total =
+        parseInt(this.model.enthuasiasm) +
+        parseInt(this.model.totality) +
+        parseInt(this.model.decision_making) +
+        parseInt(this.model.business_acumen) +
+        parseInt(this.model.visionery_thinking) +
+        parseInt(this.model.networking) +
+        parseInt(this.model.culture_implementation);
+      const average = total / 7;
+      if (average <= 60) {
+        this.model.kesimpulan = "TIDAK DISARANKAN";
+      } else if (average > 60 && average < 80) {
+        this.model.kesimpulan = "DAPAT DISARANKAN DENGAN CATATAN";
+      } else if (average >= 80) {
+        this.model.kesimpulan = "DAPAT DISARANKAN";
+      }
+    },
+
     save() {
       this.$v.$touch();
       let self = this;
@@ -619,6 +642,14 @@ export default {
 
     close() {
       this.$emit("cancelEdit", "table");
+    },
+  },
+  watch: {
+    model() {
+      console.log("Foo 1 Changed!");
+    },
+    enthuasiasm() {
+      console.log("Foo 2 Changed!");
     },
   },
 };
