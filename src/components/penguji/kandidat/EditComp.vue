@@ -304,7 +304,7 @@
             <!--======================================================================================
                 KESIMPULAN 
             ==========================================================================================-->
-            <v-col cols="4" xs="4" md="4" dense>
+            <v-col cols="4" xs="12" md="4" dense>
               <v-select
                 @input="$v.model.kesimpulan.$touch()"
                 @blur="$v.model.kesimpulan.$touch()"
@@ -320,9 +320,20 @@
                 small-chips
                 disabled
               ></v-select>
+
+              <v-text-field
+                v-model="model.average"
+                type="number"
+                label="Average"
+                required
+                outlined
+                dense
+                disabled
+              >
+              </v-text-field>
             </v-col>
 
-            <v-col cols="8" xs="8" md="8" dense>
+            <v-col cols="6" xs="12" md="6" dense>
               <v-textarea
                 @input="$v.model.catatan_kesimpulan.$touch()"
                 @blur="$v.model.catatan_kesimpulan.$touch()"
@@ -377,6 +388,7 @@ export default {
         winning_program: "",
         kesimpulan: "",
         catatan_kesimpulan: "",
+        average: 0,
       },
       tooltip: {
         enthuasiasm: false,
@@ -576,6 +588,7 @@ export default {
         parseInt(this.model.networking) +
         parseInt(this.model.culture_implementation);
       const average = total / 7;
+      this.model.average = parseInt(average);
       if (average <= 60) {
         this.model.kesimpulan = "TIDAK DISARANKAN";
       } else if (average > 60 && average < 80) {
