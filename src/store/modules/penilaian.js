@@ -26,7 +26,6 @@ const actions = {
       axios
         .post("/api/tpro/penilaian/draft", data)
         .then((response) => {
-          console.log(response, "oke gas");
           commit;
           resolve(response.data);
         })

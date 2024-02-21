@@ -386,6 +386,10 @@ export default {
   data() {
     return {
       model: {
+        penilaian_id:
+          this.kandidat.penilaian.length == 0
+            ? null
+            : this.kandidat.penilaian[0].id,
         enthuasiasm:
           this.kandidat.penilaian.length == 0
             ? ""
@@ -674,10 +678,7 @@ export default {
 
       if (!self.isRequest && self.isValid) {
         const data = {
-          penilaian_id:
-            self.kandidat.penilaian.length == 0
-              ? null
-              : self.kandidat.penilaian[0].id,
+          penilaian_id: self.model.penilaian_id,
           penguji_id: self.kandidat.jabatan.penguji[0].id,
           kandidat_id: self.kandidat.id,
           jabatan_id: self.kandidat.jabatan_id,
@@ -720,10 +721,7 @@ export default {
 
       if (!self.isRequest) {
         const data = {
-          penilaian_id:
-            self.kandidat.penilaian.length == 0
-              ? null
-              : self.kandidat.penilaian[0].id,
+          penilaian_id: self.model.penilaian_id,
           penguji_id: self.kandidat.jabatan.penguji[0].id,
           kandidat_id: self.kandidat.id,
           jabatan_id: self.kandidat.jabatan_id,
@@ -745,7 +743,8 @@ export default {
         self.$store
           .dispatch("draftPenilaian", data)
           .then((response) => {
-            window.events.$emit("flash", response);
+            self.model.penilaian_id = response.data.id;
+            window.events.$emit("flash", response.message);
             self.isRequest = false;
           })
           .catch((errors) => {
