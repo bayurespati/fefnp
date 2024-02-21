@@ -357,7 +357,16 @@
                 :loading="isRequest"
                 @click="save()"
               >
-                save
+                submit
+              </v-btn>
+              <v-btn
+                rounded
+                color="warning"
+                :loading="isRequest"
+                class="ml-3"
+                @click="draft()"
+              >
+                draft
               </v-btn>
               <v-btn rounded color="error" class="ml-3" @click="close()">
                 cancel
@@ -377,17 +386,54 @@ export default {
   data() {
     return {
       model: {
-        enthuasiasm: "",
-        totality: "",
-        decision_making: "",
-        business_acumen: "",
-        visionery_thinking: "",
-        networking: "",
-        culture_implementation: "",
-        success_story: "",
-        winning_program: "",
-        kesimpulan: "",
-        catatan_kesimpulan: "",
+        enthuasiasm:
+          this.kandidat.penilaian.length == 0
+            ? ""
+            : this.kandidat.penilaian[0].enthuasiasm,
+        totality:
+          this.kandidat.penilaian.length == 0
+            ? ""
+            : this.kandidat.penilaian[0].totality,
+        decision_making:
+          this.kandidat.penilaian.length == 0
+            ? ""
+            : this.kandidat.penilaian[0].decision_making,
+        business_acumen:
+          this.kandidat.penilaian.length == 0
+            ? ""
+            : this.kandidat.penilaian[0].business_acumen,
+        visionery_thinking:
+          this.kandidat.penilaian.length == 0
+            ? ""
+            : this.kandidat.penilaian[0].visionery_thinking,
+        networking:
+          this.kandidat.penilaian.length == 0
+            ? ""
+            : this.kandidat.penilaian[0].networking,
+        culture_implementation:
+          this.kandidat.penilaian.length == 0
+            ? ""
+            : this.kandidat.penilaian[0].culture_implementation,
+        success_story:
+          this.kandidat.penilaian.length == 0
+            ? ""
+            : this.kandidat.penilaian[0].success_story,
+        winning_program:
+          this.kandidat.penilaian.length == 0
+            ? ""
+            : this.kandidat.penilaian[0].winning_program,
+        kesimpulan:
+          this.kandidat.penilaian.length == 0
+            ? ""
+            : this.kandidat.penilaian[0].kesimpulan,
+        catatan_kesimpulan:
+          this.kandidat.penilaian.length == 0
+            ? ""
+            : this.kandidat.penilaian[0].catatan_kesimpulan,
+        status:
+          this.kandidat.penilaian.length == 0
+            ? ""
+            : this.kandidat.penilaian[0].catatan_kesimpulan,
         average: 0,
       },
       tooltip: {
@@ -583,6 +629,20 @@ export default {
     },
   },
 
+  beforeMount() {
+    this.calculate();
+  },
+
+  mounted: function () {
+    this.timer = setInterval(() => {
+      this.draft();
+    }, 180000);
+  },
+
+  beforeDestroy() {
+    clearInterval(this.timer);
+  },
+
   methods: {
     showTooltip(att) {
       this.tooltip[att] = !this.tooltip[att];
@@ -614,6 +674,10 @@ export default {
 
       if (!self.isRequest && self.isValid) {
         const data = {
+          penilaian_id:
+            self.kandidat.penilaian.length == 0
+              ? null
+              : self.kandidat.penilaian[0].id,
           penguji_id: self.kandidat.jabatan.penguji[0].id,
           kandidat_id: self.kandidat.id,
           jabatan_id: self.kandidat.jabatan_id,
@@ -628,6 +692,7 @@ export default {
           winning_program: self.model.winning_program,
           kesimpulan: self.model.kesimpulan,
           catatan_kesimpulan: self.model.catatan_kesimpulan,
+          status: "done",
         };
 
         self.isRequest = true;
@@ -638,6 +703,50 @@ export default {
             window.events.$emit("flash", response);
             self.isRequest = false;
             self.close();
+          })
+          .catch((errors) => {
+            Object.keys(errors).forEach((field) => {
+              errors[field].forEach((message) => {
+                window.events.$emit("flash", message, "danger", 5000);
+              });
+              self.isRequest = false;
+            });
+          });
+      }
+    },
+
+    draft() {
+      let self = this;
+
+      if (!self.isRequest) {
+        const data = {
+          penilaian_id:
+            self.kandidat.penilaian.length == 0
+              ? null
+              : self.kandidat.penilaian[0].id,
+          penguji_id: self.kandidat.jabatan.penguji[0].id,
+          kandidat_id: self.kandidat.id,
+          jabatan_id: self.kandidat.jabatan_id,
+          enthuasiasm: self.model.enthuasiasm,
+          totality: self.model.totality,
+          decision_making: self.model.decision_making,
+          business_acumen: self.model.business_acumen,
+          visionery_thinking: self.model.visionery_thinking,
+          networking: self.model.networking,
+          culture_implementation: self.model.culture_implementation,
+          success_story: self.model.success_story,
+          winning_program: self.model.winning_program,
+          kesimpulan: self.model.kesimpulan,
+          catatan_kesimpulan: self.model.catatan_kesimpulan,
+          status: "draft",
+        };
+
+        self.isRequest = true;
+        self.$store
+          .dispatch("draftPenilaian", data)
+          .then((response) => {
+            window.events.$emit("flash", response);
+            self.isRequest = false;
           })
           .catch((errors) => {
             Object.keys(errors).forEach((field) => {
@@ -665,14 +774,6 @@ export default {
 
     close() {
       this.$emit("cancelEdit", "table");
-    },
-  },
-  watch: {
-    model() {
-      console.log("Foo 1 Changed!");
-    },
-    enthuasiasm() {
-      console.log("Foo 2 Changed!");
     },
   },
 };

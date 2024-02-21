@@ -20,6 +20,21 @@ const actions = {
         });
     });
   },
+
+  draftPenilaian({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post("/api/tpro/penilaian/draft", data)
+        .then((response) => {
+          console.log(response, "oke gas");
+          commit;
+          resolve(response.data);
+        })
+        .catch((errors) => {
+          reject(errors.response.data.errors);
+        });
+    });
+  },
 };
 
 export default {

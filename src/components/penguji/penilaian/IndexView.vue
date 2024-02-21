@@ -12,11 +12,11 @@
           <transition name="fade-transition">
             <list
               v-if="status === 'table'"
-              @showEdit="showEdit($event)"
+              @showData="showData($event)"
               @changeStatus="changeStatus($event)"
             ></list>
             <show
-              v-if="status === 'edit'"
+              v-if="status === 'show'"
               @cancelEdit="changeStatus($event)"
               :kandidat="kandidat"
             ></show>
@@ -66,12 +66,12 @@ export default {
       }, 300);
     },
 
-    showEdit(value) {
+    showData(value) {
       let self = this;
       this.status = "";
       self.kandidat = value;
       setTimeout(function () {
-        self.status = "edit";
+        self.status = "show";
       }, 300);
     },
   },

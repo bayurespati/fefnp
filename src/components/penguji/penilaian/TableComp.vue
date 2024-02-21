@@ -25,7 +25,7 @@
       :footer-props="footerProps"
     >
       <template v-slot:[`item.action`]="{ item }">
-        <v-icon color="green" small class="mr-2" @click="edit(item)">
+        <v-icon color="green" small class="mr-2" @click="show(item)">
           mdi-eye
         </v-icon>
       </template>
@@ -100,8 +100,8 @@ export default {
       this.dialog = false;
     },
 
-    edit(item) {
-      this.$emit("showEdit", item);
+    show(item) {
+      this.$emit("showData", item);
     },
   },
 };
