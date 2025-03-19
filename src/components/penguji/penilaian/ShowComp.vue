@@ -65,7 +65,7 @@
                       </span>
                       <br />
                       <span style="font-size: 12px">
-                        Passion dan antusiasme terhdap penugasan-penugasan yang
+                        Passion dan antusiasme terhadap penugasan-penugasan yang
                         diberikan.
                       </span>
                     </td>

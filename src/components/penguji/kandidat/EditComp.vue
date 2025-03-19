@@ -50,7 +50,7 @@
                   </v-text-field>
                 </template>
                 <span>
-                  Passion dan antusiasme terhdap penugasan-penugasan yang
+                  Passion dan antusiasme terhadap penugasan-penugasan yang
                   diberikan.
                 </span>
               </v-tooltip>
@@ -116,7 +116,7 @@
                   </v-text-field>
                 </template>
                 <span>
-                  Kemampuan mengambil keputusan atau tondakan yang tepat dan
+                  Kemampuan mengambil keputusan atau tindakan yang tepat dan
                   efektif dalam menyelesaikan masalah.
                 </span>
               </v-tooltip>

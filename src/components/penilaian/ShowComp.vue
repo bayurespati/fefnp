@@ -70,7 +70,7 @@
                           </span>
                           <br />
                           <span style="font-size: 12px">
-                            Passion dan antusisme terhdap penugasan-penugasan
+                            Passion dan antusisme terhadap penugasan-penugasan
                             yang diberikan.
                           </span>
                         </td>
